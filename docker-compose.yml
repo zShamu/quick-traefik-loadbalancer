@@ -4,6 +4,7 @@ services:
   traefik:
     image: traefik:v2.5
     command:
+      - --entryPoints.web.address=:80
       - --api.insecure=true
       - --providers.docker.defaultRule=Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)
       - --providers.file.filename=/etc/traefik/conf/services.yaml
@@ -12,5 +13,5 @@ services:
       - "8080:8080"
       - "80:80"
     volumes:
-      - $PWD/services.yaml:/etc/traefik/conf/services.yaml
+      - ./services.yaml:/etc/traefik/conf/services.yaml
       - /var/run/docker.sock:/var/run/docker.sock

@@ -1,0 +1,20 @@
+# http routing section
+http:
+  routers:
+    # Define a connection between requests and services
+    main:
+      entryPoints:
+        - "web"
+      rule: "Path(`/`)"
+      # If the rule matches, forward to the whoami service (declared below)
+      service: balancer
+
+## Dynamic configuration
+  services:
+    balancer:
+      loadBalancer:
+        healthCheck:
+            path: /
+            interval: "10s"
+            timeout: "5s"
+        servers:
