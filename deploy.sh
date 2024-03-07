@@ -7,11 +7,11 @@ read -p "Enter URLs (comma-separated): " urls
 IFS=',' read -ra url_array <<< "$urls"
 yaml_content=""
 for url in "${url_array[@]}"; do
-  yaml_content+="        - url: \"$url\"\n"
+  yaml_content+="        - url: \"http://$url/\"\n"
 done
 
 # Write YAML content to services.yaml file
-echo -e "$yaml_content" > services.yaml
+echo -e "$yaml_content" >> services.yaml
 echo "Services generated successfully."
 
 sudo docker-compose up -d
